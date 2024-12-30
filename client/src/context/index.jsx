@@ -35,7 +35,54 @@ export const StateContextProvider = ({ children }) => {
       console.log("contract call failure", error)
     }
   }
+  const donate = async (pId, amount) => {
+    const data = await contract.call('donate_to_campaign', [pId], { value: ethers.utils.parseEther(amount)});
+
+    return data;
+  }
  // Define the getCampaigns function
+ const getDonations = async (pId) => {
+  const donations = await contract.call('get_donators', [pId]);
+  const numberOfDonations = donations[0].length;
+
+  const parsedDonations = [];
+
+  for(let i = 0; i < numberOfDonations; i++) {
+    parsedDonations.push({
+      donator: donations[0][i],
+      donation: ethers.utils.formatEther(donations[1][i].toString())
+    })
+  }
+
+  return parsedDonations;
+}
+const getDonatedCampaigns = async () => {
+  try {
+    // Fetch all campaigns using getCampaigns
+    const allCampaigns = await getAllCampaigns(contract);
+
+    // Initialize an array to store donated campaigns
+    const donatedCampaigns = [];
+
+    // Loop through all campaigns and check donations
+    for (let i = 0; i < allCampaigns.length; i++) {
+      const donations = await getDonations(i); // Get donations for the campaign
+
+      // Check if the current wallet address is a donator
+      const hasDonated = donations.some((donation) => donation.donator.toLowerCase() === address.toLowerCase());
+
+      if (hasDonated) {
+        donatedCampaigns.push(allCampaigns[i]); // Add to donated campaigns
+      }
+    }
+
+    return donatedCampaigns;
+  } catch (err) {
+    console.error("Error in getDonatedCampaigns function:", err);
+    return [];
+  }
+};
+
 const getCampaigns = async (contract) => {
   if (!contract) {
     console.error("Contract is not available.");
@@ -43,7 +90,43 @@ const getCampaigns = async (contract) => {
   }
 
   try {
-    // Directly call the getCampaigns method on the contract
+    const currentTime = new Date().getTime(); // Get the current timestamp
+
+    // Fetch all campaigns
+    const campaigns = await contract.call("getCampaigns");
+
+    // Filter campaigns where the deadline has not passed
+    const validCampaigns = campaigns?.filter((campaign) => {
+      return campaign.deadline.toNumber() > currentTime; // Only include campaigns with a future deadline
+    });
+
+    // Parse the filtered valid campaigns
+    const parsedCampaigns = validCampaigns?.map((campaign, i) => ({
+      owner: campaign.owner,
+      title: campaign.title,
+      description: campaign.description,
+      target: ethers.utils.formatEther(campaign.target.toString()),
+      deadline: campaign.deadline.toNumber(),
+      amountCollected: ethers.utils.formatEther(campaign.collected_amount.toString()),
+      image: campaign.image,
+      pId: i,
+    })) || [];
+
+    return parsedCampaigns;
+
+  } catch (err) {
+    console.error("Error in getCampaigns function:", err);
+    return [];
+  }
+};
+const getAllCampaigns = async (contract) => {
+  if (!contract) {
+    console.error("Contract is not available.");
+    return [];
+  }
+
+  try {
+    // Fetch all campaigns without filtering by deadline
     const campaigns = await contract.call("getCampaigns");
 
     // Parse the campaigns data
@@ -61,7 +144,7 @@ const getCampaigns = async (contract) => {
     return parsedCampaigns;
 
   } catch (err) {
-    console.error("Error in getCampaigns function:", err);
+    console.error("Error in getAllCampaigns function:", err);
     return [];
   }
 };
@@ -89,7 +172,11 @@ const getUserCampaigns = async () => {
         connect,
         createCampaign: publishCampaign,
         getCampaigns: () => getCampaigns(contract),
-        getUserCampaigns
+        getUserCampaigns,
+        getAllCampaigns,
+        getDonations,
+        getDonatedCampaigns,
+        donate
         
       }}
     >
