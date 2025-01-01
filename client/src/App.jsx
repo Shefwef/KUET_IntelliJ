@@ -1,13 +1,15 @@
 import React from "react";
 
 import { Route, Routes } from "react-router-dom";
-
+import SearchResults from "./pages/SearchResults";
 import { Sidebar, Navbar } from "./components";
+
 import {
   CampaignDetails,
   CreateCampaign,
   Home,
   Profile,
+  Homepage,
   DonatedCampaignsPage,
 } from "./pages";
 const App = () => {
@@ -21,7 +23,9 @@ const App = () => {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Homepage/>} />
+          <Route path="/home" element={<Home/>} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/donated-campaigns" element={<DonatedCampaignsPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />

@@ -40,6 +40,34 @@ export const StateContextProvider = ({ children }) => {
 
     return data;
   }
+  const getCampaignsByQuery = async (query) => {
+    if (!contract) {
+      console.error("Contract is not available.");
+      return [];
+    }
+  
+    try {
+      // Fetch all campaigns using getAllCampaigns
+      const allCampaigns = await getAllCampaigns(contract);
+  
+      // Trim the query and split into words for partial matching
+      const queryWords = query.trim().toLowerCase().split(/\s+/);
+  
+      // Filter campaigns based on matching the query words in the title
+      const filteredCampaigns = allCampaigns.filter(campaign => {
+        const titleWords = campaign.title.toLowerCase().split(/\s+/);
+        
+        // Check if all query words appear in the campaign title
+        return queryWords.every(queryWord => titleWords.includes(queryWord));
+      });
+  
+      return filteredCampaigns;
+    } catch (err) {
+      console.error("Error in getCampaignsByQuery function:", err);
+      return [];
+    }
+  };
+  
  // Define the getCampaigns function
  const getDonations = async (pId) => {
   const donations = await contract.call('get_donators', [pId]);
@@ -175,6 +203,7 @@ const getUserCampaigns = async () => {
         getUserCampaigns,
         getAllCampaigns,
         getDonations,
+        getCampaignsByQuery,
         getDonatedCampaigns,
         donate
         
