@@ -50,19 +50,17 @@ const Profile = () => {
             </div>
 
             {/* Profile Info */}
-            <div>
-              <h2 className="text-2xl text-[#6a5acd] font-bold">{user.name}</h2>
-              <p className="text-sm text-[#b3b3c0] flex items-center gap-2">
-                <span className="material-icons text-[#1dc071]">email</span>
-                {user.email}
-              </p>
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl text-[#1dc071] font-bold">{user.name}</h2>
+              <div className="flex items-center gap-2">
+                <img
+                  src="/path-to-email-icon.png"
+                  alt="Email Icon"
+                  className="w-5 h-5"
+                />
+                <p className="text-sm text-[#b3b3c0]">{user.email}</p>
+              </div>
             </div>
-          </div>
-
-          <div className="mt-4 flex gap-4">
-            <button className="bg-[#1dc071] text-white px-4 py-2 rounded-md hover:bg-[#16a066] transition-all">
-              Edit Profile
-            </button>
           </div>
         </div>
       )}

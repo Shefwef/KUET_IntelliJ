@@ -1,38 +1,43 @@
-import { createCampaign, dashboard, logout, payment, profile, withdraw } from '../assets';
-import {createThirdwebClient} from 'thirdweb' ;
-const CLIENT_ID='a73644753ab5661818da3ad6d347bd27';
+import {
+  createCampaign,
+  dashboard,
+  logout,
+  payment,
+  profile,
+  withdraw,
+} from "../assets";
+import { createThirdwebClient } from "thirdweb";
+const CLIENT_ID = "a73644753ab5661818da3ad6d347bd27";
 export const navlinks = [
   {
-    name: 'dashboard',
+    name: "dashboard",
     imgUrl: dashboard,
-    link: '/home',
+    link: "/home",
   },
   {
-    name: 'campaign',
+    name: "campaign",
     imgUrl: createCampaign,
-    link: '/create-campaign',
+    link: "/create-campaign",
   },
   {
-    name: 'payment',
+    name: "payment",
     imgUrl: payment,
-    link: '/donated-campaigns',
-    
+    link: "/donated-campaigns",
   },
   {
-    name: 'withdraw',
+    name: "withdraw",
     imgUrl: withdraw,
-    link: '/home',
+    link: "/home",
     disabled: true,
   },
   {
-    name: 'profile',
+    name: "profile",
     imgUrl: profile,
-    link: '/profile',
+    link: "/profile",
   },
   {
-    name: 'logout',
+    name: "chatbot",
     imgUrl: logout,
-    link: '/',
-    disabled: true,
+    link: "/chatbot",
   },
 ];
