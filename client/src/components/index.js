@@ -8,3 +8,4 @@ export { default as DisplayDonatedCampaigns} from './DisplayDonatedCampaigns';
 export {default as Fundcard} from './FundCard'
 export { default as CountBox } from './CountBox';
 export { default as Loader } from './Loader';
+export {default as Widget} from './Widget';

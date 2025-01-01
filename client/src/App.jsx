@@ -10,6 +10,7 @@ import {
   DonatedCampaignsPage,
   Homepage,
   Chatbot_Assistant,
+  Dashboard,
 } from "./pages";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/donated-campaigns" element={<DonatedCampaignsPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />
