@@ -8,6 +8,7 @@ import {
   Home,
   Profile,
   DonatedCampaignsPage,
+  Homepage,
   Chatbot_Assistant,
 } from "./pages";
 
@@ -24,7 +25,8 @@ const App = () => {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/donated-campaigns" element={<DonatedCampaignsPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />
