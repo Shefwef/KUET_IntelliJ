@@ -67,7 +67,121 @@ export const StateContextProvider = ({ children }) => {
       return [];
     }
   };
+  const getTotalDonations = async () => {
+    if (!contract) {
+      console.error("Contract is not available.");
+      return 0;
+    }
   
+    try {
+      const allCampaigns = await getAllCampaigns(contract);
+  
+      let totalDonations = 0;
+  
+      for (const campaign of allCampaigns) {
+        const donations = await getDonations(campaign.pId);
+  
+        for (const donation of donations) {
+          totalDonations += parseFloat(donation.donation);
+        }
+      }
+  
+      return totalDonations.toFixed(2);
+    } catch (err) {
+      console.error("Error in getTotalDonations:", err);
+      return 0;
+    }
+  };
+  
+  const getTotalMonthlyDonations = async () => {
+    if (!contract) {
+      console.error("Contract is not available.");
+      return 0;
+    }
+  
+    try {
+      const allCampaigns = await getAllCampaigns(contract);
+  
+      let totalDonations = 0;
+  
+      for (const campaign of allCampaigns) {
+        const donations = await getDonations(campaign.pId);
+  
+        for (const donation of donations) {
+          totalDonations += parseFloat(donation.donation);
+        }
+      }
+  
+      return totalDonations.toFixed(2);
+    } catch (err) {
+      console.error("Error in getTotalDonations:", err);
+      return 0;
+    }
+  };
+ 
+  const getTotalCampaigns = async () => {
+    if (!contract) {
+      console.error("Contract is not available.");
+      return 0;
+    }
+  
+    try {
+      // Use getAllCampaigns to fetch all campaigns
+      const allCampaigns = await getAllCampaigns(contract);
+      
+      // Return the count of campaigns
+      return allCampaigns.length;
+    } catch (err) {
+      console.error("Error in getTotalCampaigns:", err);
+      return 0;
+    }
+  };
+  const getTopCampaign = async () => {
+    if (!contract) {
+      console.error("Contract is not available.");
+      return null;
+    }
+  
+    try {
+      const allCampaigns = await getAllCampaigns(contract);
+      const topCampaign = allCampaigns.reduce((max, campaign) =>
+        parseFloat(campaign.collected_amount) > parseFloat(max.collected_amount) ? campaign : max
+      );
+      return topCampaign;
+    } catch (err) {
+      console.error("Error in getTopCampaign:", err);
+      return null;
+    }
+  };
+  const getRecentDonations = async () => {
+    if (!contract) {
+      console.error("Contract is not available.");
+      return [];
+    }
+  
+    try {
+      const allCampaigns = await getAllCampaigns(contract);
+      const recentDonations = [];
+  
+      for (const campaign of allCampaigns) {
+        const donations = await getDonations(campaign.pId);
+        donations.forEach((donation, index) => {
+          recentDonations.push({
+            campaignTitle: campaign.title,
+            donor: donation.donator,
+            amount: parseFloat(donation.donation),
+          });
+        });
+      }
+  
+      // Sort by amount or add timestamp for sorting if available
+      recentDonations.sort((a, b) => b.amount - a.amount);
+      return recentDonations.slice(0, 5); // Show top 5 recent donations
+    } catch (err) {
+      console.error("Error in getRecentDonations:", err);
+      return [];
+    }
+  };
  // Define the getCampaigns function
  const getDonations = async (pId) => {
   const donations = await contract.call('get_donators', [pId]);
@@ -205,7 +319,12 @@ const getUserCampaigns = async () => {
         getDonations,
         getCampaignsByQuery,
         getDonatedCampaigns,
-        donate
+        getTotalMonthlyDonations,
+        donate,
+        getTotalDonations,       // Retrieves the total donations
+        getTotalCampaigns,       // Retrieves the total campaigns count
+        getTopCampaign,          // Retrieves the campaign with the highest donations
+        getRecentDonations       // Retrieves the most recent donations
         
       }}
     >
