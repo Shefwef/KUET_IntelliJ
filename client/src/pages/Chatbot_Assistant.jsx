@@ -112,8 +112,8 @@ const Chatbot_Assistant = () => {
           Chat with Steve - Your Blockchain Assistant
         </h2>
         <p className="text-gray-400 mb-6">
-          Have more personalized questions? Talk to Steve using the icon on the
-          right.
+          Have more personalized questions? Talk to Steve using the message icon
+          on the right.
         </p>
       </div>
     </div>

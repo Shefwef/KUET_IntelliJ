@@ -6,16 +6,21 @@ const Homepage = () => {
   return (
     <div className="flex flex-col items-center mt-8 lg:mt-24 p-5 bg-gradient-to-b from-[#1e1e2d] to-[#2a2d35] min-h-screen">
       {/* App Title */}
-      <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center tracking-wide">
-        <span className="bg-gradient-to-r from-[#006A4E] to-[#004F39] text-transparent bg-clip-text font-semibold">
+      <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center tracking-wide mb-4">
+        <span className="bg-gradient-to-r from-[#006A4E] to-[#004F39] text-transparent bg-clip-text font-bold">
           Block
         </span>
-        <span className="text-white font-semibold">Funder</span>
+        <span className="text-white font-bold">Funder</span>
       </h1>
 
       {/* Subtitle */}
-      <p className="text-lg sm:text-2xl lg:text-3xl text-center mt-3 text-neutral-100">
-        <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-red-600 text-transparent bg-clip-text animate-gradient-move">
+      <p className="text-lg sm:text-2xl lg:text-3xl text-center mt-3 mb-6">
+        <span
+          className="text-transparent bg-clip-text"
+          style={{
+            backgroundImage: "linear-gradient(to right, #ffbd59, #ffa726)",
+          }}
+        >
           Crowdfunding Powered by Blockchain
         </span>
       </p>
@@ -31,7 +36,7 @@ const Homepage = () => {
       </p>
 
       {/* Call to Action */}
-      <div className="flex justify-center my-8 space-x-4">
+      <div className="flex justify-center my-8 space-x-6">
         <Link
           to="/home" // Navigate to /home
           className="bg-gradient-to-r from-[#006A4E] to-[#004F39] py-4 px-6 rounded-lg text-white text-lg font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-transform"
@@ -40,21 +45,22 @@ const Homepage = () => {
         </Link>
         <Link
           to="/chatbot" // Navigate to /chatbot
-          className="py-4 px-6 rounded-lg border border-[#006A4E] text-[#006A4E] text-lg font-medium shadow-lg hover:bg-[#006A4E] hover:text-white hover:shadow-xl hover:scale-105 transition-transform"
+          className="bg-gradient-to-r from-[#006A4E] to-[#004F39] py-4 px-6 rounded-lg text-white text-lg font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-transform"
         >
           Learn More
         </Link>
       </div>
 
       {/* Video Section */}
-      <div className="flex flex-col lg:flex-row mt-12 justify-center gap-6">
+      <div className="flex flex-col lg:flex-row mt-12 justify-center gap-10">
         <video
           autoPlay
           loop
           muted
           className="rounded-lg w-4/5 lg:w-2/5 border-4 shadow-md transition-transform duration-300 hover:scale-105"
           style={{
-            borderImage: "linear-gradient(to right, #006A4E, #FF8C00) 1",
+            borderImage:
+              "linear-gradient(to right, #006A4E, #ffbd59, #ffa726) 1",
             borderImageSlice: 1,
           }}
         >
@@ -67,7 +73,8 @@ const Homepage = () => {
           muted
           className="rounded-lg w-4/5 lg:w-2/5 border-4 shadow-md transition-transform duration-300 hover:scale-105"
           style={{
-            borderImage: "linear-gradient(to right, #006A4E, #FF8C00) 1",
+            borderImage:
+              "linear-gradient(to right, #006A4E, #ffbd59, #ffa726) 1",
             borderImageSlice: 1,
           }}
         >
