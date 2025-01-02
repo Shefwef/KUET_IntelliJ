@@ -33,6 +33,11 @@ const Profile = () => {
             border: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
+          {/* Profile Heading */}
+          <h1 className="text-3xl font-bold text-center text-[#1dc071] mb-6">
+            User Profile
+          </h1>
+
           {/* Profile Avatar */}
           <div className="flex items-center gap-6">
             <div className="relative">
