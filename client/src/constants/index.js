@@ -22,22 +22,17 @@ export const navlinks = [
   {
     name: "payment",
     imgUrl: payment,
-    link: "/donated-campaigns",
+    link: "/chatbot",
   },
   {
     name: "withdraw",
     imgUrl: withdraw,
-    link: "/home",
-    disabled: true,
+    link: "/donated-campaigns",
+    
   },
   {
     name: "profile",
     imgUrl: profile,
     link: "/profile",
-  },
-  {
-    name: "chatbot",
-    imgUrl: logout,
-    link: "/chatbot",
-  },
+  }
 ];
