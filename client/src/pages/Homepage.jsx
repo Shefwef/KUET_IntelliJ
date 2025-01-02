@@ -7,7 +7,7 @@ const Homepage = () => {
     <div className="flex flex-col items-center mt-8 lg:mt-24 p-5 bg-gradient-to-b from-[#1e1e2d] to-[#2a2d35] min-h-screen">
       {/* App Title */}
       <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center tracking-wide mb-4">
-        <span className="bg-gradient-to-r from-[#006A4E] to-[#004F39] text-transparent bg-clip-text font-bold">
+        <span className="bg-gradient-to-r from-[#71cab3] to-[#238d6f] text-transparent bg-clip-text font-bold">
           Block
         </span>
         <span className="text-white font-bold">Funder</span>
