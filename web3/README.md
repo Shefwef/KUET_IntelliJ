@@ -53,3 +53,48 @@ yarn release
 ## Join our Discord!
 
 For any questions, suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
+
+
+Small instructions on how to setup
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js and npm installed on your machine.
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>/client
+   ```
+
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Project
+- To start the development server:
+  ```bash
+  npm run dev
+  ```
+
+- To build the project for production:
+  ```bash
+  npm run build
+  ```
+
+- To preview the production build:
+  ```bash
+  npm run preview
+  ```
+
+### Linting
+- To check for code quality and style issues:
+  ```bash
+  npm run lint
+  ```
+
+### Additional Notes
+- Ensure your environment variables are set up correctly if required.
