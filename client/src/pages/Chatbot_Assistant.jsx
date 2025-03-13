@@ -31,6 +31,8 @@ const faqs = [
 
 const Chatbot_Assistant = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredFaqs, setFilteredFaqs] = useState(faqs);
 
   useEffect(() => {
     const botpressScript = document.createElement("script");
@@ -66,6 +68,14 @@ const Chatbot_Assistant = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setFilteredFaqs(
+      faqs.filter((faq) =>
+        faq.question.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm]);
+
   const toggleFAQ = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
@@ -83,23 +93,39 @@ const Chatbot_Assistant = () => {
         </p>
       </div>
 
+      {/* Search Bar */}
+      <div className="max-w-4xl mx-auto mb-8">
+        <input
+          type="text"
+          placeholder="Search FAQs..."
+          className="w-full p-3 rounded-lg bg-[#2d2d3d] text-white border border-[#3a3a4a] focus:outline-none focus:border-[#57eba3]"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       {/* FAQ Section */}
       <div className="max-w-4xl mx-auto mb-16">
         <h2 className="text-2xl font-bold text-[#57eba3] mb-6">
           Frequently Asked Questions
         </h2>
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {filteredFaqs.map((faq, index) => (
             <div
               key={index}
-              className={`p-4 rounded-lg bg-[#2d2d3d] cursor-pointer border ${
+              className={`p-6 rounded-lg bg-[#2d2d3d] shadow-lg cursor-pointer border transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 activeIndex === index ? "border-[#57eba3]" : "border-[#3a3a4a]"
               }`}
               onClick={() => toggleFAQ(index)}
             >
-              <h3 className="text-lg font-semibold">{faq.question}</h3>
+              <h3 className="text-lg font-semibold flex justify-between items-center">
+                {faq.question}
+                <button className="ml-2 text-[#57eba3] bg-[#1e1e2d] p-1 rounded-full focus:outline-none">
+                  {activeIndex === index ? "-" : "+"}
+                </button>
+              </h3>
               {activeIndex === index && (
-                <p className="mt-2 text-gray-300">{faq.answer}</p>
+                <p className="mt-4 text-gray-300 border-t border-[#3a3a4a] pt-4">{faq.answer}</p>
               )}
             </div>
           ))}
@@ -115,6 +141,7 @@ const Chatbot_Assistant = () => {
           Have more personalized questions? Talk to Steve using the message icon
           on the right.
         </p>
+       
       </div>
     </div>
   );
